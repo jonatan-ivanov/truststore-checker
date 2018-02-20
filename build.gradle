@@ -1,0 +1,26 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile 'org.codehaus.groovy:groovy:2.4.+'
+    compile 'commons-cli:commons-cli:1.+'
+}
+
+jar {
+    from files(sourceSets.main.output.classesDir)
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+    manifest {
+        attributes 'Main-Class': 'truststore_checker.Main'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.5.1'
+    distributionType = Wrapper.DistributionType.ALL
+}
