@@ -8,5 +8,5 @@ A simple cli to check your truststore over HTTPS.
 
 ## Build and run as a jar
 
-`./gradlew clean build`
+`./gradlew clean build`  
 `java -jar build/libs/truststore-checker.jar --trustStore $JAVA_HOME/jre/lib/security/cacerts --trustStorePassword changeit --url https://httpbin.org/headers --verbose`
