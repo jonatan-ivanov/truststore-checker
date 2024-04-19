@@ -1,6 +1,8 @@
 #! /usr/bin/env groovy
 
 import javax.net.ssl.HttpsURLConnection
+import groovy.cli.picocli.CliBuilder
+import groovy.cli.picocli.OptionAccessor
 
 /**
  * @author Jonatan Ivanov

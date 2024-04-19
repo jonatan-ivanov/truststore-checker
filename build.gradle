@@ -8,19 +8,17 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'org.codehaus.groovy:groovy:2.4.+'
-    compile 'commons-cli:commons-cli:1.+'
+    implementation 'org.apache.groovy:groovy-cli-picocli:4.+'
 }
 
 jar {
-    from files(sourceSets.main.output.classesDir)
-    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from configurations.runtimeClasspath.asFileTree.files.collect { zipTree(it) }
     manifest {
         attributes 'Main-Class': 'truststore-checker'
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.6'
-    distributionType = Wrapper.DistributionType.ALL
+wrapper {
+    gradleVersion = '8.6'
 }
