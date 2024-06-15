@@ -14,6 +14,7 @@ cli.with {
     _ longOpt: 'trustStore', args: 1, required: true, argName: 'trustStore', ''
     _ longOpt: 'trustStorePassword', args: 1, required: true, argName: 'trustStorePassword', ''
     _ longOpt: 'verbose', ''
+    _ longOpt: 'insecure', 'Disabe hostname verification and proceed without checking'
 }
 
 OptionAccessor options = cli.parse(args)
@@ -24,6 +25,9 @@ if (options == null || options.h) {
 if (options.verbose) System.setProperty('javax.net.debug', 'all')
 System.setProperty('javax.net.ssl.trustStore', options.trustStore)
 System.setProperty('javax.net.ssl.trustStorePassword', options.trustStorePassword)
-HttpsURLConnection.setDefaultHostnameVerifier({ hostname, session -> true })
+if (options.insecure) {
+    println 'INSECURE CONNECTION!!!'
+    HttpsURLConnection.setDefaultHostnameVerifier({ hostname, session -> true })
+}
 
 println options.url.toURL().text
